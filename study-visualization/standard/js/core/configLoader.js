@@ -1,0 +1,325 @@
+/**
+ * CONFIG LOADER - Lädt Studiengang-Konfiguration und Daten
+ */
+
+window.StudienplanConfigLoader = {
+  // Lade Konfiguration für einen Studiengang
+  async loadStudiengangConfig() {
+    try {
+      const studiengang = window.APP_STUDIENGANG || "fhnw-cs-assessment";
+      const baseProgramPath = "../program-specific";
+
+      // Bestimme das Modell (JETZT NUR NOCH MONO FÜR ALLE)
+      // Lade General-Konfiguration
+      const generalConfigPath = `${baseProgramPath}/standard-config/general-config.js`;
+      await this.loadScript(generalConfigPath);
+
+      // Lade Kategorien-Konfiguration
+      const categoriesConfigPath = `${baseProgramPath}/standard-config/standardcategories-config.js`;
+      await this.loadScript(categoriesConfigPath);
+
+      // Single-program setup: keine zusätzlichen Color-Config-Dateien mehr
+
+      // Lade Wahlmodul-Sektionen falls vorhanden
+      const wahlmoduleSectionsPath = `${baseProgramPath}/data/wahlmodule-sections.js`;
+      try {
+        await this.loadScript(wahlmoduleSectionsPath);
+      } catch (e) {
+        // Optional
+      }
+
+      // Lade Vertiefungen/Fachergänzungen-Sektionen falls vorhanden
+      const vertiefungenSectionsPath = `${baseProgramPath}/data/vertiefungen-sections.js`;
+      try {
+        await this.loadScript(vertiefungenSectionsPath);
+      } catch (e) {
+        // Optional
+      }
+
+      const profileSectionsPath = `${baseProgramPath}/data/profile-sections.js`;
+      try {
+        await this.loadScript(profileSectionsPath);
+      } catch (e) {
+        // Optional
+      }
+
+      // Lade Kontext-Sektionen falls vorhanden
+      const contextSectionsPath = `${baseProgramPath}/data/context-sections.js`;
+      try {
+        await this.loadScript(contextSectionsPath);
+      } catch (e) {
+        // Optional
+      }
+
+      // Lade feste Projektmodule falls vorhanden
+      const projectModulesPath = `${baseProgramPath}/data/project-modules-data.js`;
+      try {
+        await this.loadScript(projectModulesPath);
+      } catch (e) {
+        // Optional
+      }
+
+      // Lade Grundlagenlabore falls vorhanden
+      const laborModulesPath = `${baseProgramPath}/data/labor-modules-data.js`;
+      try {
+        await this.loadScript(laborModulesPath);
+      } catch (e) {
+        // Optional
+      }
+
+      // Major-Minor Legacy Handling:
+      // Check if global variable for modules is set after loading.
+      // Major-Minor files might define variables ending in 'PflichtmoduleData'.
+      if (!window.StudiengangModules) {
+        const anyKey = Object.keys(window).find((k) =>
+          /PflichtmoduleData$/.test(k),
+        );
+        if (anyKey) {
+          console.log(`Using legacy data variable: ${anyKey}`);
+          window.StudiengangModules = window[anyKey];
+        }
+      }
+
+      // Lade Modul-Details falls vorhanden (für Module Details Modal)
+      const detailsPath = `${baseProgramPath}/data/basic-modules-details.js`;
+
+      try {
+        await this.loadScript(detailsPath);
+      } catch (e) {
+        // Details sind optional
+      }
+
+      // Wenn Daten geladen, rendere den Studienplan
+      if (window.StudiengangModules) {
+        this.renderStudiengang(window.StudiengangModules, studiengang);
+      } else {
+        this.renderStudiengang([], studiengang);
+      }
+    } catch (error) {
+      console.error("Fehler beim Laden der Konfiguration:", error);
+    }
+  },
+
+  // Lade ein Script dynamisch
+  async loadScript(src) {
+    const script = document.createElement("script");
+    script.src = src;
+    document.head.appendChild(script);
+
+    // Warte auf Laden
+    await new Promise((resolve, reject) => {
+      script.onload = resolve;
+      script.onerror = () => reject(new Error(`Failed to load ${src}`));
+    });
+  },
+
+  // Rendere den Studienplan
+  renderStudiengang(modules, studiengang) {
+    // Mappe Kategorien zu CSS-Klassen
+    const mappedModules = this.mapCategoriesToClasses(modules);
+
+    // Entferne Assessment-Module aus dem initialen Render, damit sie
+    // nur über die Zuweisung in den Studienplan gelangen (vermeidet Duplikate)
+    const modulesToRender = Array.isArray(mappedModules)
+      ? mappedModules.filter((m) => !m.isAssessment)
+      : mappedModules;
+
+    // Gruppiere Module (ohne Assessments)
+    const grouped =
+      window.StudienplanUtils.groupModulesByYearAndSemester(modulesToRender);
+
+    // Rendere Layout
+    window.StudienplanLayout.renderLayout(grouped);
+
+    // Rendere Legende (nur mit bekannten Kategorien, damit keine farblosen Einträge erscheinen)
+    const configuredLegendClasses = new Set(
+      (window.StudiengangCategoriesConfig?.kategorien || []).map(
+        (cat) => cat.klasse,
+      ),
+    );
+    const categoryOrderMap = new Map(
+      (window.StudiengangCategoriesConfig?.kategorien || []).map(
+        (category, index) => [category.klasse, index],
+      ),
+    );
+
+    const categories = window.StudienplanUtils.getUniqueCategories(
+      modulesToRender,
+    ).filter(
+      (category) =>
+        configuredLegendClasses.size === 0 ||
+        configuredLegendClasses.has(category),
+    );
+    categories.sort((left, right) => {
+      const leftOrder = categoryOrderMap.has(left)
+        ? categoryOrderMap.get(left)
+        : Number.MAX_SAFE_INTEGER;
+      const rightOrder = categoryOrderMap.has(right)
+        ? categoryOrderMap.get(right)
+        : Number.MAX_SAFE_INTEGER;
+      if (leftOrder !== rightOrder) return leftOrder - rightOrder;
+      return String(left).localeCompare(String(right), "de");
+    });
+    window.StudienplanLegend.renderLegend(categories);
+    // Setze Titel
+    this.setTitles(studiengang);
+
+    // Initialisiere optionale Module, falls vorhanden (z.B. wenn sie nach DOMContentLoaded geladen wurden)
+    try {
+      if (
+        window.StudienplanColorManager &&
+        typeof window.StudienplanColorManager.initialize === "function"
+      ) {
+        // Color Manager initialisieren (erzeugt Selector / Legendeneinträge)
+        window.StudienplanColorManager.initialize();
+      }
+
+      if (
+        window.StudienplanWahlmodule &&
+        typeof window.StudienplanWahlmodule.restorePersistedSelections ===
+          "function"
+      ) {
+        // Gespeicherte Wahlmodule nach dem Rendern wiederherstellen
+        window.StudienplanWahlmodule.restorePersistedSelections();
+      }
+
+      if (
+        window.StudienplanKPCounter &&
+        typeof window.StudienplanKPCounter.updateTotalKP === "function"
+      ) {
+        // KP Counter aktualisieren (berechnet aus gerenderten Modulen)
+        window.StudienplanKPCounter.updateTotalKP();
+      }
+    } catch (e) {
+      console.warn("Fehler beim Initialisieren optionaler Module:", e);
+    }
+
+    console.log("Studienplan gerendert für:", studiengang);
+  },
+
+  // Mappe standardcategory zu CSS-Klasse
+  mapCategoriesToClasses(modules) {
+    if (
+      !window.StudiengangCategoriesConfig ||
+      !window.StudiengangCategoriesConfig.kategorien
+    ) {
+      // Fallback: verwende color-config falls vorhanden, sonst vereinfache
+      return modules.map((module) => ({
+        ...module,
+        standardcategory:
+          this.getCategoryFromColorConfig(module) ||
+          this.simplifyCategory(module.standardcategory),
+      }));
+    }
+
+    const normalizeCategoryName = (name) =>
+      (name || "")
+        .trim()
+        .replace(/^[-*]\s+/, "")
+        .toLowerCase();
+
+    const categoryMap = {};
+    window.StudiengangCategoriesConfig.kategorien.forEach((cat) => {
+      categoryMap[normalizeCategoryName(cat.name)] = cat.klasse;
+    });
+
+    // Backward-compatible aliases for renamed legend categories
+    const legacyAliases = {
+      "fachgrundlagen & fachergänzungen": "fachgrundlagen",
+      vertiefungen: "vertiefungen",
+      projekte: "projekt",
+      kontext: "kontext",
+      "software engineering": "software-engineering",
+    };
+
+    const resolveCategoryAlias = (rawCategory) => {
+      const normalized = normalizeCategoryName(rawCategory);
+      if (!normalized) return null;
+
+      if (legacyAliases[normalized]) {
+        return legacyAliases[normalized];
+      }
+
+      // Tolerate shortened labels from legacy/imported data
+      if (normalized.startsWith("software")) return "software-engineering";
+      if (normalized.startsWith("programmierung")) return "programmierung";
+      if (normalized.startsWith("vertiefungen")) return "vertiefungen";
+      if (normalized.startsWith("systeme")) return "projekt";
+      if (normalized.startsWith("fachergänzungen")) return "fachergaenzungen";
+      if (normalized.startsWith("fachergaenzungen")) return "fachergaenzungen";
+      if (normalized.startsWith("ergänzungen")) return "kontext";
+      if (normalized.startsWith("theoretische")) return "fachgrundlagen";
+
+      return null;
+    };
+
+    return modules.map((module) => ({
+      ...module,
+      standardcategory:
+        categoryMap[normalizeCategoryName(module.standardcategory)] ||
+        resolveCategoryAlias(module.standardcategory) ||
+        this.getCategoryFromColorConfig(module) ||
+        this.simplifyCategory(module.standardcategory),
+    }));
+  },
+
+  // Hole Kategorie aus color-config (für CSE)
+  getCategoryFromColorConfig(module) {
+    if (window.CSEColorConfig && window.CSEColorConfig.getThemenbereich) {
+      const themenbereich = window.CSEColorConfig.getThemenbereich(module.name);
+      return themenbereich;
+    }
+    return null;
+  },
+
+  // Vereinfache Kategorie-Name zu CSS-Klasse
+  simplifyCategory(category) {
+    if (!category) return "unknown";
+    return category
+      .toLowerCase()
+      .replace(/obligatorische\s+/g, "")
+      .replace(/fächer/g, "")
+      .replace(/praktikum/g, "praktikum")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "");
+  },
+
+  // Setze Titel und Untertitel
+  setTitles(studiengang) {
+    const titleElement = document.getElementById("studienplan-title");
+    const subtitleElement = document.getElementById("studienplan-subtitle");
+
+    if (titleElement) {
+      const title =
+        window.StudiengangGeneralConfig?.title ||
+        this.getStudiengangName(studiengang);
+      titleElement.textContent = title;
+    }
+
+    if (subtitleElement) {
+      if (window.StudiengangGeneralConfig?.subtitleHtml) {
+        subtitleElement.innerHTML =
+          window.StudiengangGeneralConfig.subtitleHtml;
+      } else {
+        subtitleElement.textContent = "mind. 180 KP insgesamt";
+      }
+    }
+  },
+
+  // Übersetze Studiengang-Namen
+  getStudiengangName(studiengang) {
+    const names = {
+      "eth-cs": "Informatik",
+      "eth-cse": "Computer Science and Engineering",
+      // Füge weitere hinzu...
+    };
+    return names[studiengang] || studiengang.toUpperCase();
+  },
+};
+
+// Mache Funktion global verfügbar
+window.loadStudiengangConfig =
+  window.StudienplanConfigLoader.loadStudiengangConfig.bind(
+    window.StudienplanConfigLoader,
+  );
