@@ -1,6 +1,6 @@
-/* ==== FHNW EIT KOMMUNIKATION ==== */
+/* ==== FHNW MASCHINENBAU KOMMUNIKATION ==== */
 
-window.ITETKommunikationData = [
+window.MaschinenbauKommunikationData = [
   {
     name: "Argumentieren und Auftreten",
     ects: 2,

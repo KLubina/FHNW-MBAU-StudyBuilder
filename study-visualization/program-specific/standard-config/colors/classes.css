@@ -1,62 +1,83 @@
-/* ==== fhnw-mbau - CSS CLASSES ==== */
-/* Program-specific CSS classes */
+/* ==== fhnw-mbau - MASCHINENBAU CSS CLASSES ==== */
 
-[data-studiengang="fhnw-mbau"] .modul.math-nat,
-[data-studiengang="fhnw-mbau"] .legende-item.math-nat {
-  background-color: var(--color-math-nat);
-  color: var(--color-math-nat-text, white);
+[data-studiengang="fhnw-mbau"] .modul.mathematik-1,
+[data-studiengang="fhnw-mbau"] .legende-item.mathematik-1 {
+  background-color: var(--color-mathematik-1);
+  color: white;
 }
 
-[data-studiengang="fhnw-mbau"] .modul.ee,
-[data-studiengang="fhnw-mbau"] .legende-item.ee {
-  background-color: var(--color-ee);
-  color: var(--color-ee-text, white);
+[data-studiengang="fhnw-mbau"] .modul.mathematik-2,
+[data-studiengang="fhnw-mbau"] .legende-item.mathematik-2 {
+  background-color: var(--color-mathematik-2);
+  color: white;
 }
 
-[data-studiengang="fhnw-mbau"] .modul.informatik,
-[data-studiengang="fhnw-mbau"] .legende-item.informatik {
-  background-color: var(--color-informatik);
-  color: var(--color-informatik-text, white);
+[data-studiengang="fhnw-mbau"] .modul.naturwissenschaften,
+[data-studiengang="fhnw-mbau"] .legende-item.naturwissenschaften {
+  background-color: var(--color-naturwissenschaften);
+  color: white;
+}
+
+[data-studiengang="fhnw-mbau"] .modul.werkstoffe,
+[data-studiengang="fhnw-mbau"] .legende-item.werkstoffe {
+  background-color: var(--color-werkstoffe);
+  color: white;
+}
+
+[data-studiengang="fhnw-mbau"] .modul.labor,
+[data-studiengang="fhnw-mbau"] .legende-item.labor {
+  background-color: var(--color-labor);
+  color: white;
+}
+
+[data-studiengang="fhnw-mbau"] .modul.mechanik,
+[data-studiengang="fhnw-mbau"] .legende-item.mechanik {
+  background-color: var(--color-mechanik);
+  color: white;
+}
+
+[data-studiengang="fhnw-mbau"] .modul.thermo-fluid-energie,
+[data-studiengang="fhnw-mbau"] .legende-item.thermo-fluid-energie {
+  background-color: var(--color-thermo-fluid-energie);
+  color: white;
+}
+
+[data-studiengang="fhnw-mbau"] .modul.elektrische-energietechnik,
+[data-studiengang="fhnw-mbau"] .legende-item.elektrische-energietechnik {
+  background-color: var(--color-elektrische-energietechnik);
+  color: white;
 }
 
 [data-studiengang="fhnw-mbau"] .modul.fachvertiefung,
 [data-studiengang="fhnw-mbau"] .legende-item.fachvertiefung {
   background-color: var(--color-fachvertiefung);
-  color: var(--color-fachvertiefung-text, white);
+  color: white;
 }
 
 [data-studiengang="fhnw-mbau"] .modul.fachergaenzung,
 [data-studiengang="fhnw-mbau"] .legende-item.fachergaenzung {
   background-color: var(--color-fachergaenzung);
-  color: var(--color-fachergaenzung-text, white);
+  color: white;
 }
 
 [data-studiengang="fhnw-mbau"] .modul.projekte-labor,
 [data-studiengang="fhnw-mbau"] .legende-item.projekte-labor {
   background-color: var(--color-projekte-labor);
-  color: var(--color-projekte-labor-text, white);
+  color: white;
 }
 
 [data-studiengang="fhnw-mbau"] .modul.kommunikation,
 [data-studiengang="fhnw-mbau"] .legende-item.kommunikation {
   background-color: var(--color-kommunikation);
-  color: var(--color-kommunikation-text, white);
+  color: white;
 }
 
 [data-studiengang="fhnw-mbau"] .modul.englisch,
-[data-studiengang="fhnw-mbau"] .legende-item.englisch {
-  background-color: var(--color-kommunikation);
-  color: var(--color-kommunikation-text, white);
-}
-
+[data-studiengang="fhnw-mbau"] .legende-item.englisch,
 [data-studiengang="fhnw-mbau"] .modul.bwl,
-[data-studiengang="fhnw-mbau"] .legende-item.bwl {
-  background-color: var(--color-gsw);
-  color: var(--color-gsw-text, white);
-}
-
+[data-studiengang="fhnw-mbau"] .legende-item.bwl,
 [data-studiengang="fhnw-mbau"] .modul.gsw,
 [data-studiengang="fhnw-mbau"] .legende-item.gsw {
   background-color: var(--color-gsw);
-  color: var(--color-gsw-text, white);
+  color: white;
 }

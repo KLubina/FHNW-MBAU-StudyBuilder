@@ -951,23 +951,19 @@ window.StudienplanWahlmodule = {
         // Mappe Dateinamen zu erwarteten Variablennamen
         const sourceToVarMap = {
           "wahlmodule-data.js": "WahlmoduleData",
-          "electrical-engineering-data.js": "ITETElectricalEngineeringData",
-          "informatik-data.js": "ITETInformatikData",
-          "mathematik-data.js": "ITETMathematikData",
-          "vertiefungen-data.js": "ITETWahlfaecherData",
-          "context-modules-data.js": "ITETModuleData",
-          "kommunikation-data.js": "ITETKommunikationData",
-          "englisch-data.js": "ITETEnglischData",
-          "bwl-data.js": "ITETBwlData",
-          "gsw-data.js": "ITETGswData",
+          "kommunikation-data.js": "MaschinenbauKommunikationData",
+          "englisch-data.js": "MaschinenbauEnglischData",
+          "bwl-data.js": "MaschinenbauBwlData",
+          "gsw-data.js": "MaschinenbauGswData",
           "labor-modules-data.js": "StudiengangLaborModules",
-          "fachvertiefung-ea-data.js": "ITETProfilEAData",
-          "fachvertiefung-es-data.js": "ITETProfilESData",
-          "fachergaenzung-data.js": "ITETFachergaenzungData",
+          "fachvertiefung-ea-data.js": "MaschinenbauFachvertiefungData",
+          "fachergaenzung-data.js": "MaschinenbauFachergaenzungData",
           "seminar-data.js": "PolisciSeminarData",
           "vertiefungsmodule-data.js": "PolisciVertiefungsmoduleData",
           "specialisationmodule-data.js": "SpecialisationModuleData",
           "major-modules-data.js": "StudiengangWahlmoduleData",
+          "maschinenbau-grundlagen-data.js":
+            "StudiengangMaschinenbauGrundlagen",
           "erweiterung-modules-data.js": "StudiengangErweiterungWahlmoduleData",
           "wahlmodules.js": "StudiengangWahlmoduleData",
           "vertiefungsmodule.js": "StudiengangVertiefungsmoduleData",
@@ -984,14 +980,7 @@ window.StudienplanWahlmodule = {
 
         // Fallback: Versuche verschiedene globale Variablen zu finden
         if (!modules) {
-          const possibleVars = [
-            "ITETWahlfaecherData",
-            "ITETModuleData", // Kernfächer
-            "ITETWeitereWahlGrundlagenData",
-            "ITETPraktikaSeminarProjektData",
-            "StudiengangLaborModules",
-            "WahlmoduleData",
-          ];
+          const possibleVars = ["StudiengangLaborModules", "WahlmoduleData"];
 
           for (const varName of possibleVars) {
             if (window[varName]) {

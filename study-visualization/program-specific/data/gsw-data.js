@@ -1,6 +1,6 @@
-/* ==== FHNW EIT GEISTES- UND SOZIALWISSENSCHAFTEN ==== */
+/* ==== FHNW MASCHINENBAU GEISTES- UND SOZIALWISSENSCHAFTEN ==== */
 
-window.ITETGswData = [
+window.MaschinenbauGswData = [
   {
     name: "Modul a nach aktuellem Angebot",
     ects: 2,

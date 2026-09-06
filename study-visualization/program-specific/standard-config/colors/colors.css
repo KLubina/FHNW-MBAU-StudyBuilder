@@ -1,11 +1,16 @@
 /* ==== fhnw-mbau - COLOR VARIABLES ==== */
-/* FHNW Elektro- und Informationstechnik Program */
+/* FHNW Maschinenbau Program */
 
 [data-studiengang="fhnw-mbau"] {
   --color-primary: #0369a1;
-  --color-math-nat: #dc2626;
-  --color-ee: #ea580c;
-  --color-informatik: #7c3aed;
+  --color-mathematik-1: #dc2626;
+  --color-mathematik-2: #b91c1c;
+  --color-naturwissenschaften: #ea580c;
+  --color-werkstoffe: #b45309;
+  --color-labor: #0f766e;
+  --color-mechanik: #2563eb;
+  --color-thermo-fluid-energie: #c2410c;
+  --color-elektrische-energietechnik: #475569;
   --color-fachvertiefung: #0284c7;
   --color-fachergaenzung: #0891b2;
   --color-projekte-labor: #0f766e;

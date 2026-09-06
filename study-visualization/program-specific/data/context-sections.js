@@ -1,4 +1,4 @@
-/* ==== FHNW EIT KONTEXT-SEKTIONEN ==== */
+/* ==== FHNW MASCHINENBAU KONTEXT-SEKTIONEN ==== */
 
 window.StudiengangContextSections = [
   {

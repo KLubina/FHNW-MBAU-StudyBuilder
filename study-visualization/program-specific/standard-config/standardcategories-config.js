@@ -4,9 +4,17 @@
 window.StudiengangCategoriesConfig = {
   // Category definitions
   kategorien: [
-    { name: "Mathematik und Naturwissenschaften", klasse: "math-nat" },
-    { name: "Electrical Engineering", klasse: "ee" },
-    { name: "Informatik", klasse: "informatik" },
+    { name: "Mathematik 1", klasse: "mathematik-1" },
+    { name: "Mathematik 2", klasse: "mathematik-2" },
+    { name: "Naturwissenschaften", klasse: "naturwissenschaften" },
+    { name: "Werkstoffe, Fertigung, Konstruktion", klasse: "werkstoffe" },
+    { name: "Labor", klasse: "labor" },
+    { name: "Technische Mechanik", klasse: "mechanik" },
+    { name: "Thermo-/Fluid-/Energietechnik", klasse: "thermo-fluid-energie" },
+    {
+      name: "Elektrische Energietechnik",
+      klasse: "elektrische-energietechnik",
+    },
     { name: "Fachvertiefung", klasse: "fachvertiefung" },
     { name: "Fachergänzung", klasse: "fachergaenzung" },
     { name: "Projekte und Labor", klasse: "projekte-labor" },

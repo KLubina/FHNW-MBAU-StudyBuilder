@@ -1,33 +1,34 @@
-/* ==== FHNW EIT GRUNDLAGENLABORE ==== */
+/* ==== FHNW MASCHINENBAU LABOR ==== */
 
 window.StudiengangLaborModules = [
   {
-    name: "Labor Elektrische Messtechnik",
-    ects: 2,
-    standardcategory: "Projekte und Labor",
-  },
-  {
-    name: "Scientific Python",
-    ects: 2,
-    standardcategory: "Projekte und Labor",
-  },
-  {
-    name: "Hardware Prototyping",
-    ects: 2,
-    standardcategory: "Projekte und Labor",
-  },
-  {
-    name: "Grundlagenlabor 3",
+    name: "Labor Chemie/Konstruktion",
     ects: 3,
     standardcategory: "Projekte und Labor",
-    year: 2,
-    semester: 3,
   },
   {
-    name: "Grundlagenlabor 4",
+    name: "Labor Physik & Werkstoffe",
     ects: 3,
     standardcategory: "Projekte und Labor",
-    year: 2,
-    semester: 4,
+  },
+  {
+    name: "Mess- und Sensortechnik",
+    ects: 3,
+    standardcategory: "Projekte und Labor",
+  },
+  {
+    name: "FEM Simulation",
+    ects: 3,
+    standardcategory: "Projekte und Labor",
+  },
+  {
+    name: "CFD Simulation",
+    ects: 3,
+    standardcategory: "Projekte und Labor",
+  },
+  {
+    name: "Workshop Werkstoffe Konstruktion",
+    ects: 3,
+    standardcategory: "Projekte und Labor",
   },
 ];

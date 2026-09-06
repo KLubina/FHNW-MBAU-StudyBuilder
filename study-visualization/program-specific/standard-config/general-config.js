@@ -3,12 +3,10 @@
 
 window.StudiengangGeneralConfig = {
   // Program identification
-  title: "BSc Elektro- und Informationstechnik",
+  title: "BSc Maschinenbau",
 
   // Optional HTML subtitle (renders clickable links when provided)
-  subtitleHtml: `<a href="https://www.berufsberatung.ch/dyn/show/4009?id=18617" target="_blank" rel="noopener">Berufsberatung.ch</a>
+  subtitleHtml: `<a href="https://www.fhnw.ch/de/studium/technik/maschinenbau" target="_blank" rel="noopener">Studiengang-Seite</a>
     <br>
-    <a href="https://www.fhnw.ch/de/studium/technik/elektro-und-informationstechnik" target="_blank" rel="noopener">Studiengang-Seite</a>
-    <br>
-    <a href="https://issuu.com/fhnw/docs/modultabelle_eit?ff&pageLayout=singlePage" target="_blank" rel="noopener">Alle Module</a>`,
+    <a href="https://issuu.com/fhnw/docs/modultabelle_20maschinenbau" target="_blank" rel="noopener">Alle Module Maschinenbau</a>`,
 };

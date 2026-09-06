@@ -1,6 +1,6 @@
-/* ==== FHNW EIT BETRIEBSWIRTSCHAFTSLEHRE ==== */
+/* ==== FHNW MASCHINENBAU BETRIEBSWIRTSCHAFTSLEHRE ==== */
 
-window.ITETBwlData = [
+window.MaschinenbauBwlData = [
   {
     name: "Financial Accounting for Engineers",
     ects: 2,

@@ -1,19 +1,12 @@
-/* ==== FHNW EIT PROFILE UND FACHERGAENZUNGS-SEKTIONEN ==== */
+/* ==== FHNW MASCHINENBAU PROFILE UND FACHERGAENZUNGEN ==== */
 
 window.StudiengangProfilSections = [
   {
-    title: "EA - Energie- und Antriebssysteme",
+    title: "Fachvertiefung: Maschinenbau",
     category: "Fachvertiefung",
     className: "fachvertiefung",
     minEcts: 18,
     source: "fachvertiefung-ea-data.js",
-  },
-  {
-    title: "ES - Embedded Systems Design",
-    category: "Fachvertiefung",
-    className: "fachvertiefung",
-    minEcts: 18,
-    source: "fachvertiefung-es-data.js",
   },
   {
     title: "Fachergänzungen",

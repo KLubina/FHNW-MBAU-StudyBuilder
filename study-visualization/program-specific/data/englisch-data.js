@@ -1,6 +1,6 @@
-/* ==== FHNW EIT ENGLISCH ==== */
+/* ==== FHNW MASCHINENBAU ENGLISCH ==== */
 
-window.ITETEnglischData = [
+window.MaschinenbauEnglischData = [
   { name: "Developing English 1", ects: 2, standardcategory: "Englisch" },
   { name: "Developing English 2", ects: 2, standardcategory: "Englisch" },
   { name: "Technical English 1", ects: 2, standardcategory: "Englisch" },
