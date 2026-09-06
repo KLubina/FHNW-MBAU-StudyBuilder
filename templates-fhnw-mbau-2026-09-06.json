@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "exportedAt": "2026-09-06T14:50:46.513Z",
+  "studiengang": "fhnw-mbau",
+  "templates": [
+    {
+      "id": "3682ec01-342c-4e82-a3ac-fabe31f89959",
+      "name": "assessment",
+      "updatedAt": "2026-09-06T14:50:43.280Z",
+      "snapshot": {
+        "studienplan:fhnw-mbau:assessments:assignments": "{\"Lineare Algebra 1\":1,\"Lineare Algebra 2\":2,\"Informatik\":2,\"Analysis 1\":1,\"Analysis 2\":2,\"Grundkonzepte der Mechanik\":1,\"Wärme und Strahlung\":2,\"Chemie 1\":1,\"Workshop Chemie\":2,\"Werkstoffe 2\":2,\"Maschinenelemente\":1,\"Statik\":1,\"Thermodynamik\":2}",
+        "studienplan:fhnw-mbau:color-mode": "standard",
+        "studienplan:fhnw-mbau:wahlmodule:maschinenbau-grundlagen-data.js:Werkstoffe%2C%20Fertigung%2C%20Konstruktion": "[{\"id\":\"ad01b2f0-c376-4540-bc0c-fd351e1bd6d0\",\"semester\":1,\"module\":{\"name\":\"Werkstoffe 1\",\"ects\":3,\"standardcategory\":\"Werkstoffe, Fertigung, Konstruktion\"}}]"
+      }
+    }
+  ]
+}
